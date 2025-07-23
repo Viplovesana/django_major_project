@@ -29,12 +29,14 @@ def login(req):
     if req.method == "POST":
         email=req.POST.get('email')
         password=req.POST.get('password')
+        
         match=User.objects.filter(email=email)
         if match:
             usermatch=User.objects.get(email=email)
             pass1=usermatch.password
             if password==pass1:
-                return render(req,"home.html")
+                userdata={"name":usermatch.name,"email":usermatch.email,}
+                return render(req,"user_dashboard.html",{"userpro":userdata})
             else:
                 msg="password not matched"
                 return render(req,"login.html",{"msg":msg})

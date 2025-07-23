@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block tital %}
+user_dashboard
+{% endblock  %}
+{% block content %}
+<section class="userdash">
+
+
+  <div class="container py-4">
+    <h2>Welcome, {{userpro.name}}👋</h2>
+    <!-- User Profile -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">👤 User Profile</h5>
+        <p><strong>Name:</strong> {{userpro.name}}</p>
+        <p><strong>Email:</strong> {{userpro.email}}</p>
+      </div>
+    </div>
+
+    <!-- New Query Form -->
+    <div class="card mb-4 shadow-sm">
+     
+      <div class="card-body">
+        <h5 class="card-title">📝 Submit a New Query</h5>
+        <form method="POST">
+          <div class="mb-3">
+            <label for="query" class="form-label">Your Query</label>
+            <textarea class="form-control" id="query" name="query" rows="3" placeholder="Enter your issue..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Query</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- All Queries List -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">📋 All Your Queries</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered mt-3">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Query</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Static sample data -->
+              <tr>
+                <td>1</td>
+                <td>Where is my order?</td>
+                <td><span class="badge bg-warning text-dark">Pending</span></td>
+                <td>23-Jul-2025</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Need replacement</td>
+                <td><span class="badge bg-success">Resolved</span></td>
+                <td>20-Jul-2025</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+{% endblock  %}
