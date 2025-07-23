@@ -4,71 +4,109 @@
 user_dashboard
 {% endblock  %}
 {% block content %}
-<section class="userdash">
 
+<nav class="navbar navbar-dark bg-dark d-md-none">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" id="sidebarToggle">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-brand mb-0 h1">Dashboard</span>
+  </div>
+</nav>
 
-  <div class="container py-4">
-    <h2>Welcome, {{userpro.name}}👋</h2>
-    <!-- User Profile -->
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">👤 User Profile</h5>
-        <p><strong>Name:</strong> {{userpro.name}}</p>
-        <p><strong>Email:</strong> {{userpro.email}}</p>
-      </div>
-    </div>
+<div class="container-fluid">
+  <div class="row">
 
-    <!-- New Query Form -->
-    <div class="card mb-4 shadow-sm">
-     
-      <div class="card-body">
-        <h5 class="card-title">📝 Submit a New Query</h5>
-        <form method="POST">
-          <div class="mb-3">
-            <label for="query" class="form-label">Your Query</label>
-            <textarea class="form-control" id="query" name="query" rows="3" placeholder="Enter your issue..."></textarea>
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 sidebar d-md-block d-none" id="sidebarMenu">
+      <h4 class="text-center">👨‍🎓 Welcome, {{userpro.name}}</h4>
+      <a href="#profile">👤 Profile</a>
+      <form action="{% url 'query' pk=userpro.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-light w-100 text-start">➕ Query</button>
+      </form>
+      <form action="{% url 'allquery' pk=userpro.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-light w-100 mt-2 text-start">📋 Your Queries</button>
+      </form>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+
+      <!-- User Profile -->
+      <section id="profile">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">👤 User Profile</h5>
+            <p><strong>Name:</strong> {{userpro.name}}</p>
+            <p><strong>Email:</strong> {{userpro.email}}</p>
           </div>
-          <button type="submit" class="btn btn-primary">Submit Query</button>
-        </form>
-      </div>
-    </div>
+        </div>
+      </section>
 
-    <!-- All Queries List -->
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">📋 All Your Queries</h5>
+      <!-- Query Form -->
+      {% if query %}
+      <form action="{% url 'querydata' pk=userpro.id %}" method="post" class="p-4 bg-white shadow rounded" style="max-width: 600px; margin: auto;">
+        {% csrf_token %}
+        <h4 class="mb-4 text-center">Submit Your Query</h4>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" name="name" value="{{ userpro.name }}" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" value="{{ userpro.email }}" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Your Query</label>
+          <input type="text" class="form-control" name="query" placeholder="Enter your query here..." required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Submit Query</button>
+        </div>
+      </form>
+      {% endif %}
+
+      <!-- Query Table -->
+      {% if aquery %}
+      <div class="container mt-5">
+        <h3 class="text-center mb-4">Query Data Table</h3>
         <div class="table-responsive">
-          <table class="table table-bordered mt-3">
-            <thead class="table-light">
+          <table class="table table-bordered table-striped table-hover text-center">
+            <thead class="table-dark">
               <tr>
-                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Query</th>
-                <th>Status</th>
-                <th>Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Static sample data -->
+              {% for i in aquery %}
               <tr>
-                <td>1</td>
-                <td>Where is my order?</td>
-                <td><span class="badge bg-warning text-dark">Pending</span></td>
-                <td>23-Jul-2025</td>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.query}}</td>
+                <td><a href="#" class="btn btn-sm btn-warning">Edit</a></td>
+                <td><a href="#" class="btn btn-sm btn-danger">Delete</a></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Need replacement</td>
-                <td><span class="badge bg-success">Resolved</span></td>
-                <td>20-Jul-2025</td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+      {% endif %}
 
+    </main>
   </div>
-
-</section>
-
+</div>
+<script>
+  document.getElementById('sidebarToggle').addEventListener('click', function () {
+    document.getElementById('sidebarMenu').classList.toggle('show');
+  });
+</script>
 {% endblock  %}

@@ -83,7 +83,36 @@ font-weight:600;
   height: 100vh;
   margin-top: 50px;
 }
-
+   body {
+      overflow-x: hidden;
+    }
+    .sidebar {
+      height: 100vh;
+      background-color: #343a40;
+      color: white;
+      padding-top: 1rem;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      display: block;
+    }
+    .sidebar a:hover {
+      background-color: #495057;
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        z-index: 1000;
+        width: 200px;
+        left: -200px;
+        transition: all 0.3s;
+      }
+      .sidebar.show {
+        left: 0;
+      }
+    }
 
 @media only screen and (max-width: 800px){
     .navbar-brand img{
