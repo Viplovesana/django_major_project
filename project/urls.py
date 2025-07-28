@@ -29,4 +29,7 @@ urlpatterns = [
     path('query/<int:pk>/', views.query, name='query'),
     path('querydata/<int:pk>/', views.querydata, name='querydata'),
     path('allquery/<int:pk>/', views.allquery, name='allquery'),
+    path('edit/<int:id>/<int:pk>', views.edit, name='edit'),
+    path('update/<int:id>/<int:pk>', views.update, name='update'),
+    path('delete/<int:id>/<int:pk>', views.delete, name='delete'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

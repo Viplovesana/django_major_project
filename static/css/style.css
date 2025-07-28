@@ -101,18 +101,124 @@ font-weight:600;
     .sidebar a:hover {
       background-color: #495057;
     }
-    @media (max-width: 768px) {
-      .sidebar {
-        position: absolute;
-        z-index: 1000;
-        width: 200px;
-        left: -200px;
-        transition: all 0.3s;
-      }
-      .sidebar.show {
-        left: 0;
-      }
+    .dash_board{
+      margin-top: 55px;
     }
+      body, .dash_board {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+
+  a, p, h1, h2, h3, h4, h5, h6, label, th, td, span {
+    color: #fff !important;
+  }
+
+  /* Sidebar Links */
+  .nav-barr a {
+    display: block;
+    padding: 10px 20px;
+    color:  rgb(25, 214, 151);
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .nav-barr a:hover {
+    background-color: #1a1a1a;
+  }
+
+  /* Buttons */
+  .btn,
+  .btn-outline-light,
+  .btn-primary,
+  .btn-warning,
+  .btn-danger {
+    border: 2px solid rgb(25, 214, 151) !important;
+    background-color: transparent !important;
+    color:  rgb(25, 214, 151)!important;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn:hover {
+    background-color: rgb(25, 214, 151) !important;
+    color: #000 !important;
+  }
+
+
+ .soft-card-form {
+  background-color: #1b1b1b !important; /* dark grey */
+  color: #ffffff;
+  border: 1px solid #2f2f2f;
+}
+
+
+.soft-card-form label {
+  color: #ffffff !important;
+}
+
+.soft-card-form input.form-control {
+  background-color: #2a2a2a !important; /* dark grey input (not pure black) */
+  color: #ffffff !important;
+  border: 1px solid #393939 !important;
+}
+
+.soft-card-form input::placeholder {
+  color: #aaa;
+}
+
+/* ✅ Submit Button */
+.btn-green-submit {
+  background-color: rgb(25, 214, 151)!important;
+  color: #000 !important;
+  font-weight: bold;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-green-submit:hover {
+  background-color: rgb(25, 214, 151) !important;
+  color: #000;
+}
+  /* Cards & Tables */
+  .card, .pro-card, .table {
+    background-color: #111 !important;
+    color: #fff;
+  }
+
+  .table th, .table td {
+    border-color: #444 !important;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: #1a1a1a;
+  }
+
+  .table-dark {
+    background-color: #222 !important;
+    color: rgb(25, 214, 151);
+  }
+
+  /* Profile Image Shadow */
+  .rounded-circle.shadow {
+    box-shadow: 0 0 10px  rgb(25, 214, 151);
+  }
+    .side-close{
+    border: none;
+  }
+
+@media (max-width: 768px) {
+  #sidebarMenu {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    width: 70%;
+    height: 100vh;
+    background-color:#222;
+    z-index: 1050;
+    padding: 1rem;
+  }
+
+}
+    
 
 @media only screen and (max-width: 800px){
     .navbar-brand img{

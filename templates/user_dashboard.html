@@ -4,12 +4,13 @@
 user_dashboard
 {% endblock  %}
 {% block content %}
-
+<section class="dash_board">
 <nav class="navbar navbar-dark bg-dark d-md-none">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" id="sidebarToggle">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<button class="navbar-toggler" type="button" id="sidebarToggle">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
     <span class="navbar-brand mb-0 h1">Dashboard</span>
   </div>
 </nav>
@@ -18,26 +19,49 @@ user_dashboard
   <div class="row">
 
     <!-- Sidebar -->
-    <nav class="col-md-3 col-lg-2 sidebar d-md-block d-none" id="sidebarMenu">
-      <h4 class="text-center">👨‍🎓 Welcome, {{userpro.name}}</h4>
-      <a href="#profile">👤 Profile</a>
-      <form action="{% url 'query' pk=userpro.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-light w-100 text-start">➕ Query</button>
-      </form>
-      <form action="{% url 'allquery' pk=userpro.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-light w-100 mt-2 text-start">📋 Your Queries</button>
-      </form>
-    </nav>
+ <!-- Sidebar -->
+<nav class="col-md-3 col-lg-2 sidebar d-md-block d-none nav-barr" id="sidebarMenu">
+
+<div class="d-flex justify-content-end d-md-none">
+  <button class="btn btn-sm  side-close" id="closeSidebar">&times;</button>
+</div>
+
+  <!-- 🔵 Circular Profile Image + Name -->
+  <div class="d-flex flex-column align-items-center py-4">
+   
+    <img src="{{ userpro.profile.url}}" 
+         alt="userpro.profile" class="rounded-circle shadow"
+         style="width: 100px; height: 100px; object-fit: cover;">
+    <h6 class="text-white mt-3 text-center">{{ userpro.name }}</h6>
+     <h6 class="text-white mt-1 text-center">{{ userpro.email }}</h6>
+  </div>
+
+  <!-- Static Sidebar Buttons -->
+  <a href="#address">🏠 My Address</a>
+  <a href="#orders">📦 My Orders</a>
+  <a href="#wishlist">❤️ My Wishlist</a>
+  <a href="#rewards">🎁 My Rewards</a>
+
+  <!-- Functional Buttons (Forms with CSRF) -->
+  <form action="{% url 'query' pk=userpro.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">➕ Query</button>
+  </form>
+
+  <form action="{% url 'allquery' pk=userpro.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-2 text-start">📋 Your Queries</button>
+  </form>
+</nav>
+
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
 
       <!-- User Profile -->
       <section id="profile">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
+        <div class="card mb-4 shadow-sm ">
+          <div class="card-body pro-card">
             <h5 class="card-title">👤 User Profile</h5>
             <p><strong>Name:</strong> {{userpro.name}}</p>
             <p><strong>Email:</strong> {{userpro.email}}</p>
@@ -47,30 +71,34 @@ user_dashboard
 
       <!-- Query Form -->
       {% if query %}
-      <form action="{% url 'querydata' pk=userpro.id %}" method="post" class="p-4 bg-white shadow rounded" style="max-width: 600px; margin: auto;">
-        {% csrf_token %}
-        <h4 class="mb-4 text-center">Submit Your Query</h4>
-        <div class="mb-3">
-          <label class="form-label">Name</label>
-          <input type="text" class="form-control" name="name" value="{{ userpro.name }}" readonly>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" name="email" value="{{ userpro.email }}" readonly>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Your Query</label>
-          <input type="text" class="form-control" name="query" placeholder="Enter your query here..." required>
-        </div>
-        <div class="d-grid">
-          <button type="submit" class="btn btn-primary">Submit Query</button>
-        </div>
-      </form>
+<form action="{% url 'querydata' pk=userpro.id %}" method="post" class="p-4 shadow rounded soft-card-form" style="max-width: 600px; margin: auto;">
+  {% csrf_token %}
+  <h4 class="mb-4 text-center">Submit Your Query</h4>
+
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" value="{{ userpro.name }}" readonly>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" name="email" value="{{ userpro.email }}" readonly>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Your Query</label>
+    <input type="text" class="form-control" name="query" placeholder="Enter your query here..." required>
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-green-submit">Submit Query</button>
+  </div>
+</form>
       {% endif %}
 
       <!-- Query Table -->
       {% if aquery %}
-      <div class="container mt-5">
+      <div class="container mt-3">
         <h3 class="text-center mb-4">Query Data Table</h3>
         <div class="table-responsive">
           <table class="table table-bordered table-striped table-hover text-center">
@@ -91,8 +119,8 @@ user_dashboard
                 <td>{{i.name}}</td>
                 <td>{{i.email}}</td>
                 <td>{{i.query}}</td>
-                <td><a href="#" class="btn btn-sm btn-warning">Edit</a></td>
-                <td><a href="#" class="btn btn-sm btn-danger">Delete</a></td>
+                <td><a href="{% url 'edit' id=i.id pk=userpro.id %}" class="btn btn-sm btn-danger">Edit</a></td>
+                <td><a href="{% url 'delete' id=i.id pk=userpro.id %}" class="btn btn-sm btn-danger">Delete</a></td>
               </tr>
               {% endfor %}
             </tbody>
@@ -101,12 +129,52 @@ user_dashboard
       </div>
       {% endif %}
 
+            {% if editdata %}
+<form action="{% url 'update' id=editdata.id pk=userpro.id %}" method="post" class="p-4 shadow rounded soft-card-form" style="max-width: 600px; margin: auto;">
+  {% csrf_token %}
+  <h4 class="mb-4 text-center">Update Your Query</h4>
+
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" value="{{ editdata.name }}" readonly>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" name="email" value="{{ editdata.email }}" readonly>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Your Query</label>
+    <input type="text" class="form-control" name="query" placeholder="update your query here..." required>
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-green-submit">Update Query</button>
+  </div> 
+</form>
+
+{% endif %}
+</section>
     </main>
   </div>
 </div>
+
+
+
+
+
 <script>
-  document.getElementById('sidebarToggle').addEventListener('click', function () {
-    document.getElementById('sidebarMenu').classList.toggle('show');
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("sidebarToggle").addEventListener("click", function () {
+      document.getElementById("sidebarMenu").classList.toggle("d-none");
+    });
+
+    document.getElementById("closeSidebar").addEventListener("click", function () {
+      document.getElementById("sidebarMenu").classList.add("d-none");
+    });
   });
 </script>
+
+
 {% endblock  %}
