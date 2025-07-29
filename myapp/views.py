@@ -92,8 +92,14 @@ def delete(req,id,pk):
     deletedata.delete()
     userdata=User.objects.get(id=pk) 
     aquery=Query.objects.filter(email=userdata.email)  
-    return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery})  
+    return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery}) 
 
+from django.db.models import Q
+def search(req,pk):
+    userdata=User.objects.get(id=pk)
+    searchdata=req.POST.get("search")
+    aquery=Query.objects.filter(Q(email=userdata.email)&Q(query__contains=searchdata)) 
+    return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery}) 
 
 
 
