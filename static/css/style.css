@@ -264,6 +264,16 @@ font-weight:600;
   gap: 15px;
   padding: 10px;
 }
+.addvertive-d{
+  width: 77%;
+  display: flex;
+  gap: 15px;
+  margin: auto;
+  padding: 20px;
+}
+.add-tital{
+  margin-left: 195px;
+}
 
 
 
@@ -321,22 +331,55 @@ nav.custom-nav {
   margin-top: 50px;
 }
 .slide-div{
-  width: 85%;
+  width: 91%;
   display: flex;
   grid-template-columns: repeat(12,300px);
   overflow:scroll ;
   scrollbar-width:none;
   gap: 7px;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
 
 }
 .slide-div div img{
   width: 50px;
   height: 60px;
 }
-
-
+.marque-container{
+  width:100%;
+  margin: auto;
+  padding: 15px;
+}
+.marque-box{
+  display: flex;
+  gap: 15px;
+  padding: 3px;
+}
+.marque-box div img{
+  height: 30px;
+  width: 150px;
+}
+.marque-container h4{
+  font-size: 5px;
+}
+.marque-title{
+ font-size:15px; 
+}
+.addvertive-d{
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  margin: auto;
+  padding: 9px;
+}
+.add-tital{
+  margin-left:15px;
+  font-size:15px;
+}
+.addvertive-d div img{
+  height: 77px;
+  width:162px ;
+}
 
 }
 
