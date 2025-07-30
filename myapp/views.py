@@ -32,19 +32,22 @@ def login(req):
     if req.method == "POST":
         email=req.POST.get('email')
         password=req.POST.get('password')
-        
-        match=User.objects.filter(email=email)
-        if match:
-            usermatch=User.objects.get(email=email)
-            pass1=usermatch.password
-            if password==pass1:
-                return render(req,"user_dashboard.html",{"userpro":usermatch})
-            else:
-                msg="password not matched"
-                return render(req,"login.html",{"msg":msg})
+        if email == "viplovesana90@gmail.com" and password =="Viplove@123":
+            msg ="Welcome Admin"
+            return render(req,"admin_dashboard.html",{"welcome":msg})
         else:
-            msg="Email not registerd"
-            return render(req,"register.html",{"email":msg})        
+            match=User.objects.filter(email=email)
+            if match:
+                usermatch=User.objects.get(email=email)
+                pass1=usermatch.password
+                if password==pass1:
+                    return render(req,"user_dashboard.html",{"userpro":usermatch})
+                else:
+                    msg="password not matched"
+                    return render(req,"login.html",{"msg":msg})
+            else:
+                msg="Email not registerd"
+                return render(req,"register.html",{"email":msg})        
     return render(req,"login.html")
 def logout(req):
     pass
@@ -88,11 +91,18 @@ def update(req,id,pk):
         return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery})       
       
 def delete(req,id,pk):
-    deletedata=Query.objects.get(id=id)
-    deletedata.delete()
-    userdata=User.objects.get(id=pk) 
-    aquery=Query.objects.filter(email=userdata.email)  
-    return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery}) 
+    deletedata=Query.objects.filter(id=id)
+    if deletedata:
+        deletedata=Query.objects.get(id=id)
+        deletedata.delete()
+        userdata=User.objects.get(id=pk) 
+        aquery=Query.objects.filter(email=userdata.email) 
+        return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery}) 
+    else:
+        userdata=User.objects.get(id=pk) 
+        aquery=Query.objects.filter(email=userdata.email) 
+        return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery}) 
+
 
 from django.db.models import Q
 def search(req,pk):
