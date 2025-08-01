@@ -240,7 +240,7 @@ font-weight:600;
 
 .content-sec{
   width: 100%;
-  height: 100vh;
+  height: 100%;
    background-color: rgb(25, 25, 25);
 }
 .slide-div{
@@ -265,16 +265,32 @@ font-weight:600;
   padding: 10px;
 }
 .addvertive-d{
-  width: 77%;
+  width: 75%;
   display: flex;
   gap: 15px;
   margin: auto;
-  padding: 20px;
 }
 .add-tital{
   margin-left: 195px;
 }
-
+.addvertive-dd{
+  width: 75%;
+  display: flex;
+  gap: 15px;
+  margin: auto;
+  margin-top: 10px;
+}
+.addvertive-ddd{
+  width: 75%;
+  display: flex;
+  gap: 15px;
+  margin: auto;
+ 
+}
+.add-tital2{
+  margin-left: 195px;
+  margin-top: 10px;
+}
 
 
 /* ...................................media query........................................................... */
@@ -380,7 +396,32 @@ nav.custom-nav {
   height: 77px;
   width:162px ;
 }
+.addvertive-dd{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 
+}
+.addvertive-dd div img{
+ height: 160px;
+ width:310px ; 
+}
+.addvertive-ddd{
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  margin: auto;
+  padding: 9px;
+}
+.add-tital2{
+  margin-left:15px;
+  font-size:15px;
+}
+.addvertive-ddd div img{
+  height: 77px;
+  width:162px ;
+}
 }
 
 
