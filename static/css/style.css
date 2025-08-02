@@ -234,6 +234,30 @@ font-weight:600;
   /* background-color: white; */
 
 }
+    .sidebar {
+      width: 250px;
+      background-color: #1e1e2f;
+      min-height: 100vh;
+    }
+    .sidebar .nav-link {
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+    }
+    .sidebar .nav-link:hover {
+      background-color: #343a40;
+      color: #fff;
+    }
+    .content-area {
+      margin-left: 250px;
+      padding: 30px;
+    }
+    .form-card {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
 
 /* ..................................content-section..................................................... */
 
@@ -291,7 +315,66 @@ font-weight:600;
   margin-left: 195px;
   margin-top: 10px;
 }
+.posterLL{
+  width: 75%;
+  margin: auto;
+  margin-top: 20px;
+}
+.posterLL div img{
+  border-radius: 10px;
+}
+.add-tital3{
+  margin-left: 195px;
+  margin-top: 10px;
+  margin-top: 30px;
+}
+.slide-div2{
+  width: 75%;
+  display: flex;
+  grid-template-columns: repeat(12,300px);
+  overflow:scroll ;
+  scrollbar-width:none;
+  gap: 15px;
+  margin: auto;
+  padding: 40px;
+}
+.slide-div2 div img{
+  border-radius: 10px;
+}
 
+/* ..................................allproducts page....................................................... */
+
+
+.item-page{
+  margin-top: 70px;
+  background-color:#1a1a1a;
+}
+.item-div{
+  width: 75%;
+  margin: auto;
+  height: 100vh;
+ 
+}
+
+.card-box{
+  border-radius: 20px;
+}
+.card-boxx {
+   border-radius: 20px;
+}
+.fav-icon {
+  color: #ccc; /* default color */
+  transition: color 0.3s ease;
+}
+
+.fav-icon:hover {
+  color: rgb(0, 255, 145); /* hover color */
+}
+.buttonss{
+  width: 800px;
+  height: 200px;
+  border: 1px solid white;
+}
 
 /* ...................................media query........................................................... */
 @media only screen and (max-width: 800px){
@@ -422,6 +505,38 @@ nav.custom-nav {
   height: 77px;
   width:162px ;
 }
+.slide-div2{
+  width: 91%;
+  display: flex;
+  grid-template-columns: repeat(12,300px);
+  overflow:scroll ;
+  scrollbar-width:none;
+  gap: 7px;
+  margin: auto;
+  padding: 10px;
+
+}
+.slide-div2 div img{
+  width: 75px;
+  height: 60px;
+}
+.posterLL{
+  width: 100%;
+  margin-top: 20px;
+  margin-left: 12px;
+}
+.posterLL div img{
+  border-radius: 10px;
+  width: 320px;
+  height: 80px;
+}
+.add-tital3{
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-top: 30px;
+  font-size:15px;
+}
+
 }
 
 

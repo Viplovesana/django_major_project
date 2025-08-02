@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block tital %}
+admin_dashboard
+{% endblock  %}
+{% block content %}
+<section class="item-page">
+
+<h1>vbnm</h1>
+
+
+
+<div class="item-div">
+
+
+<div class="container mt-5">
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown Menu
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="container mt-4">
+  <div class="row">
+    {% for i in product %}
+    <div class="col-md-3 mb-4 card-box">
+      <div class="card h-100 position-relative" style="border-radius: 20px; overflow: hidden;">
+
+        <!-- Favorite Button -->
+   <!-- Favorite Button -->
+<i class="fa-regular fa-heart fav-icon position-absolute top-0 end-0 m-2" style="cursor: pointer;"></i>
+
+
+        <!-- Image with no extra radius (inherits from card) -->
+        <img src="{{ i.pro_image.url }}" class="card-img-top" alt="..." style="height: 240px; object-fit: cover;">
+
+        <!-- Card Body -->
+        <div class="card-body">
+          <h5 class="card-title">{{ i.pro_name }}</h5>
+          <p class="card-text">₹{{ i.pro_price }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+
+</section>
+ {% endblock  %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from.models import User,Query
+from.models import User,Query,Productinfo
 
 # Create your views here.
 
@@ -113,4 +113,24 @@ def search(req,pk):
 
 
 
- 
+# .....................Admin dashboard code.......................................................
+
+
+def proform(req):
+    add="Wellcome Admin Please proceed"
+    return render(req,"admin_dashboard.html",{'add':add})
+
+def additem(req):
+    if req.method == "POST":
+        pro_name=req.POST.get('pro_name')
+        pro_price=req.POST.get('pro_price')
+        pro_image=req.FILES.get('pro_image')
+        pro_disc=req.FILES.get('pro_disc')
+        Productinfo.objects.create(pro_name=pro_name,pro_price=pro_price,pro_image=pro_image,pro_disc=pro_disc)
+        return render(req,"admin_dashboard.html")
+def dash(req):
+     return render(req,"admin_dashboard.html")
+
+def allproduct(req):
+    itemdata=Productinfo.objects.all()
+    return render(req,'allproducts.html',{'product':itemdata})    

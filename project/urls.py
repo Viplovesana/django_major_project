@@ -33,4 +33,9 @@ urlpatterns = [
     path('update/<int:id>/<int:pk>', views.update, name='update'),
     path('delete/<int:id>/<int:pk>', views.delete, name='delete'),
     path('search/<int:pk>/', views.search, name='search'),
+
+    path('proform/', views.proform, name='proform'),
+    path('additem/', views.additem, name='additem'),
+    path('dash/', views.dash, name='dash'),
+    path('allproduct/', views.allproduct, name='allproduct'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

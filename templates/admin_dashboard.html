@@ -4,10 +4,112 @@
 admin_dashboard
 {% endblock  %}
 {% block content %}
-<section class="admin">
-<h1 class="wel">{{welcome}}</h1>
+<section class="dash_board">
+  <!-- Navbar (for small screens) -->
+  <nav class="navbar navbar-dark bg-dark d-md-none">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" id="sidebarToggle">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <span class="navbar-brand mb-0 h1 title-dash">Admin Dashboard</span>
+    </div>
+  </nav>
 
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Sidebar -->
+      <nav class="col-md-3 col-lg-2 sidebar d-md-block d-none nav-barr side-barrrr" id="sidebarMenu">
+        <div class="d-flex justify-content-end d-md-none">
+          <button class="btn btn-sm side-close" id="closeSidebar">&times;</button>
+        </div>
+
+        <div class="d-flex flex-column align-items-center py-4">
+          <img src="{% static 'images/admin.png' %}" 
+               alt="Admin" class="rounded-circle shadow"
+               style="width: 100px; height: 100px; object-fit: cover;">
+          <h6 class="text-white mt-3 text-center">{{ welcome }}</h6>
+        </div>
+       <form action="{% url 'dash' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-home me-2"></i>Dashboard</button>
+        </form>
+        <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">➕ Add Product</button>
+        </form>
+         <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-box-open me-2"></i>Products</button>
+        </form>
+         <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-users me-2"></i>Customers</button>
+        </form>
+         <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-star me-2"></i>Reviews</button>
+        </form>
+        <form action="{% url 'logout' %}" method="POST">
+         {% csrf_token %}
+        <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">
+        <i class="fas fa-sign-out-alt me-2"></i>Logout
+         </button>
+        </form>
+
+  
+      </nav>
+
+      <!-- Main Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+        <!-- Product Add Form -->
+        {% if add %}
+        <form action="{% url 'additem' %}" method="post" enctype="multipart/form-data" class="p-4 shadow rounded soft-card-form" style="max-width: 600px; margin: auto;">
+          {% csrf_token %}
+          <h4 class="mb-4 text-center">{{ add }}</h4>
+
+          <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input type="text" class="form-control" name="pro_name" maxlength="100" required>
+          </div>
+
+            <div class="mb-3">
+            <label class="form-label">Product Discription</label>
+            <input type="text" class="form-control" name="pro_disc" maxlength="100" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Product Price</label>
+            <input type="text" class="form-control" name="pro_price" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Product Image</label>
+            <input type="file" class="form-control" name="pro_image" required>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success">Submit Product</button>
+          </div>
+        </form>
+        {% endif %}
+      </main>
+    </div>
+  </div>
 </section>
+
+<!-- Sidebar Toggle Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("sidebarToggle").addEventListener("click", function () {
+      document.getElementById("sidebarMenu").classList.toggle("d-none");
+    });
+
+    document.getElementById("closeSidebar").addEventListener("click", function () {
+      document.getElementById("sidebarMenu").classList.add("d-none");
+    });
+  });
+</script>
 
 
 {% endblock  %}
