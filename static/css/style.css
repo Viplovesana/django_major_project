@@ -344,16 +344,12 @@ font-weight:600;
 
 /* ..................................allproducts page....................................................... */
 
-
-.item-page{
-  margin-top: 70px;
-  background-color:#1a1a1a;
+.detailsection{
+  background-color:#222;
 }
 .item-div{
   width: 75%;
-  margin: auto;
-  height: 100vh;
- 
+  margin: auto; 
 }
 
 .card-box{

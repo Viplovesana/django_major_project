@@ -4,12 +4,9 @@
 admin_dashboard
 {% endblock  %}
 {% block content %}
-<section class="item-page">
+<section class="detailsection">
 
 <h1>vbnm</h1>
-
-
-
 <div class="item-div">
 
 
@@ -33,29 +30,21 @@ admin_dashboard
     <div class="col-md-3 mb-4 card-box">
       <div class="card h-100 position-relative" style="border-radius: 20px; overflow: hidden;">
 
-        <!-- Favorite Button -->
-   <!-- Favorite Button -->
-<i class="fa-regular fa-heart fav-icon position-absolute top-0 end-0 m-2" style="cursor: pointer;"></i>
-
-
-        <!-- Image with no extra radius (inherits from card) -->
+        <form action="{% url ''%}" >
+        <i class="fa-regular fa-heart fav-icon position-absolute top-0 end-0 m-2" style="cursor: pointer;"></i>
         <img src="{{ i.pro_image.url }}" class="card-img-top" alt="..." style="height: 240px; object-fit: cover;">
-
         <!-- Card Body -->
         <div class="card-body">
           <h5 class="card-title">{{ i.pro_name }}</h5>
           <p class="card-text">₹{{ i.pro_price }}</p>
         </div>
+        </form>
+
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
-
-
-
-
-
 
 </div>
 
