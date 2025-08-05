@@ -353,7 +353,36 @@ font-weight:600;
   width: 75%;
   margin: auto; 
 }
+.card-text {
+  margin-bottom: 4px;
+}
+.drop-down{
+  display: flex;
+}
+ .drop-n-down {
+    font-size: 14px !important; 
+    border: none !important;
+    background-color: #5c5c5c !important;
+    padding-left: 14px !important;
+    padding-right: 16px !important;
+    border-radius: 10px !important;
+  }
+ 
 
+
+.mrp-style{
+  text-decoration: line-through; 
+  color: rgb(137, 137, 137) !important;
+  font-size: 15px !important;
+  margin-top: 6px;
+}
+.price-tag{
+  display: flex;
+  gap: 5px;
+}
+.card-text{
+  font-size: 22px;
+}
 .card-box{
   border-radius: 20px;
 }
@@ -515,6 +544,10 @@ font-weight:600;
   border: 1px solid #555;
   padding: 6px;
   border-radius: 4px;
+}
+.card-text2{
+  font-size: 22px !important;
+  font-weight:bolder;
 }
 
 .btn {

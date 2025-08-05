@@ -124,9 +124,10 @@ def additem(req):
     if req.method == "POST":
         pro_name=req.POST.get('pro_name')
         pro_price=req.POST.get('pro_price')
+        pro_mrp=req.POST.get('pro_mrp')
         pro_image=req.FILES.get('pro_image')
         pro_disc=req.POST.get('pro_disc')
-        Productinfo.objects.create(pro_name=pro_name,pro_price=pro_price,pro_image=pro_image,pro_disc=pro_disc)
+        Productinfo.objects.create(pro_name=pro_name,pro_price=pro_price,pro_image=pro_image,pro_disc=pro_disc,pro_mrp=pro_mrp)
         return render(req,"admin_dashboard.html")
 def dash(req):
      return render(req,"admin_dashboard.html")

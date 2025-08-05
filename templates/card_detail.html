@@ -40,7 +40,11 @@ card_detail page
     <h2>{{ product.pro_name }}</h2>
 
     <!-- Price -->
-    <p class="price">₹{{ product.pro_price }}</p>
+    
+       <div class="price-tag">
+            <p class="card-text2">₹{{ product.pro_price }}</p>
+            <p class="card-text mb-1 mrp-style" >M.R.P: ₹{{ product.pro_mrp }}</p>
+          </div>
 
     <!-- EMI & Warranty side-by-side -->
     <div class="info-row">
