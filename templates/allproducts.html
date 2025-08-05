@@ -28,9 +28,8 @@ admin_dashboard
   <div class="row">
     {% for i in product %}
     <div class="col-md-3 mb-4 card-box">
-      <div class="card h-100 position-relative" style="border-radius: 20px; overflow: hidden;">
-
-        <form action="{% url ''%}" >
+      <a href="{% url 'carddetail' i.id %}" style="text-decoration: none; color: inherit;">
+      <div class="card h-100 position-relative" style="border-radius: 20px; overflow: hidden;"> 
         <i class="fa-regular fa-heart fav-icon position-absolute top-0 end-0 m-2" style="cursor: pointer;"></i>
         <img src="{{ i.pro_image.url }}" class="card-img-top" alt="..." style="height: 240px; object-fit: cover;">
         <!-- Card Body -->
@@ -38,13 +37,13 @@ admin_dashboard
           <h5 class="card-title">{{ i.pro_name }}</h5>
           <p class="card-text">₹{{ i.pro_price }}</p>
         </div>
-        </form>
-
       </div>
+      </a>
     </div>
     {% endfor %}
   </div>
 </div>
+
 
 </div>
 

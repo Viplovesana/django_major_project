@@ -125,7 +125,7 @@ def additem(req):
         pro_name=req.POST.get('pro_name')
         pro_price=req.POST.get('pro_price')
         pro_image=req.FILES.get('pro_image')
-        pro_disc=req.FILES.get('pro_disc')
+        pro_disc=req.POST.get('pro_disc')
         Productinfo.objects.create(pro_name=pro_name,pro_price=pro_price,pro_image=pro_image,pro_disc=pro_disc)
         return render(req,"admin_dashboard.html")
 def dash(req):
@@ -133,4 +133,9 @@ def dash(req):
 
 def allproduct(req):
     itemdata=Productinfo.objects.all()
-    return render(req,'allproducts.html',{'product':itemdata})    
+    return render(req,'allproducts.html',{'product':itemdata}) 
+   
+def carddetail(req,pk):
+    itemdata=Productinfo.objects.get(id=pk)
+    return render(req, 'card_detail.html', {'product': itemdata})
+

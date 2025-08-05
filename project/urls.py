@@ -38,4 +38,5 @@ urlpatterns = [
     path('additem/', views.additem, name='additem'),
     path('dash/', views.dash, name='dash'),
     path('allproduct/', views.allproduct, name='allproduct'),
+    path('carddetail/<int:pk>/', views.carddetail, name='carddetail'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
