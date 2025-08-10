@@ -155,4 +155,23 @@ def addtocart(req,pk):
     return render(req,'card_detail.html')
 
 def usercart(req):
-    return render(req,'usercart.html')
+    cart = req.session.get('cart',[])
+    quantity = req.session.get('quantity',[])
+    print(cart,quantity)
+    l=[]
+    totalprize=0
+    for i ,j in zip(cart,quantity):
+        i = Productinfo.objects.get(id=i)
+        data={
+            'id':i.id,
+            'name':i.pro_name,
+            'disc':i.pro_disc,
+            'price':i.pro_price,
+            'mrp':i.pro_mrp,
+            'image':i.pro_image,
+            'quantity':j,
+            'totalprice':i.pro_price*j
+        }
+        totalprize+=i.pro_price*j
+        l.append(data)
+    return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize})
