@@ -607,6 +607,29 @@ a:hover {
   }
 }
 
+/* ...................................usercart-page........................................................ */
+
+.usercart-page{
+  background-color: white;
+  height: 100vh;
+  width: 100%;
+}
+
+.container.my-4.bg-white {
+    color: black !important;
+}
+
+.container.my-4.bg-white a {
+    color: black !important;
+    /* text-decoration: underline !important; */
+}
+.text-black{
+    color: black !important;
+    text-decoration: none !important;
+}
+.card-title{
+  font-size: 17px !important;
+}
 
 /* ...................................media query........................................................... */
 @media only screen and (max-width: 800px){

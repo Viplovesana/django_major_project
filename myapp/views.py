@@ -161,17 +161,33 @@ def usercart(req):
     l=[]
     totalprize=0
     for i ,j in zip(cart,quantity):
-        i = Productinfo.objects.get(id=i)
+        pro_i = Productinfo.objects.get(id=i)
         data={
-            'id':i.id,
-            'name':i.pro_name,
-            'disc':i.pro_disc,
-            'price':i.pro_price,
-            'mrp':i.pro_mrp,
-            'image':i.pro_image,
+            'id':pro_i.id,
+            'name':pro_i.pro_name,
+            'disc':pro_i.pro_disc,
+            'price':pro_i.pro_price,
+            'mrp':pro_i.pro_mrp,
+            'image':pro_i.pro_image,
             'quantity':j,
-            'totalprice':i.pro_price*j
+            'totalprice':pro_i.pro_price*j,
+            'savings': pro_i.pro_mrp - pro_i.pro_price 
+
         }
-        totalprize+=i.pro_price*j
+        totalprize+=pro_i.pro_price*j
         l.append(data)
     return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize})
+
+def remove_cart(req,pk):
+    cart = req.session.get( 'cart',[])
+    quantity = req.session.get( 'quantity',[])
+    rindex = cart.index(pk)
+    if pk in cart:
+        del cart[rindex]
+        del quantity[rindex]
+        req.session['cart']=cart
+        req.session['quantity']=quantity
+        req.session.modified=True
+        return redirect('usercart')
+    else:
+        return redirect('usercart')
