@@ -611,8 +611,12 @@ a:hover {
 
 .usercart-page{
   background-color: white;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
 }
 
 .container.my-4.bg-white {
@@ -629,6 +633,14 @@ a:hover {
 }
 .card-title{
   font-size: 17px !important;
+}
+.tital-up{
+  margin-top: 100px;
+  color: #000 !important;
+  font-size: 21px;
+  font-weight:bolder;
+  margin-left: 122px;
+  
 }
 
 /* ...................................media query........................................................... */
