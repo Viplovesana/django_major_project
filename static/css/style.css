@@ -642,6 +642,18 @@ a:hover {
   margin-left: 122px;
   
 }
+.emi-optionn{
+  margin-bottom:10px !important;
+  font-size: 17px !important;
+  font-weight:500;
+}
+.emi-option{
+ color: green !important;
+  
+}
+.cheack-out{
+  background-color: rgb(42, 230, 161) !important;
+}
 
 /* ...................................media query........................................................... */
 @media only screen and (max-width: 800px){
