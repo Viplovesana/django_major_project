@@ -4,7 +4,12 @@ from.models import User,Query,Productinfo
 # Create your views here.
 
 def home(req):
+    card=req.session.get('cart',[])
+    if card:
+        count=len(card)
+        return render(req,"home.html",{'count':count})
     return render(req,"home.html")
+
 def register(req):
     print(req.POST)
     if req.method=="POST":
@@ -178,7 +183,8 @@ def usercart(req):
         totalprize+=pro_i.pro_price*j
         totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
         l.append(data)
-    return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings})
+        count=len(cart)
+    return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count})
 
 def remove_cart(req,pk):
     cart = req.session.get( 'cart',[])
