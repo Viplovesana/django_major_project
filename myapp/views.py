@@ -175,6 +175,7 @@ def usercart(req):
     l=[]
     totalprize=0
     totalsavings=0
+    count=len(cart)
     for i ,j in zip(cart,quantity):
         pro_i = Productinfo.objects.get(id=i)
         data={
@@ -192,7 +193,7 @@ def usercart(req):
         totalprize+=pro_i.pro_price*j
         totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
         l.append(data)
-        count=len(cart)
+       
     return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count})
 
 def remove_cart(req,pk):
