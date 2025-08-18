@@ -15,11 +15,30 @@
     left: 115px;
     color: white;
 }
-.serch-icon{
+.search-icon{
     position: absolute;
-    top: 12px;
-   right: 160px;
+    top: 30px;
+    left: 740px;
+    color: black;
 
+}
+.item-count{
+ 
+  margin-left: 5px;
+ margin-bottom: 4px;
+  font-size: 11px; 
+  color: black !important;
+  font-size: 10px;
+}
+.count-box{
+  height: 18px;
+  width: 18px;
+  border: 1px solid black;
+  position:absolute;
+  right:-8px ;
+  bottom: 25px;
+ border-radius: 50px;
+ background-color: rgb(25, 214, 151) ;
 }
 nav.custom-nav {
     background-color: black;

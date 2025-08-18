@@ -139,11 +139,19 @@ def dash(req):
 
 def allproduct(req):
     itemdata=Productinfo.objects.all()
+    card=req.session.get('cart',[])
+    if card:
+        count=len(card)
+        return render(req,'allproducts.html',{'product':itemdata,'count':count}) 
     return render(req,'allproducts.html',{'product':itemdata}) 
    
 def carddetail(req,pk):
     itemdata=Productinfo.objects.get(id=pk)
-    return render(req, 'card_detail.html', {'product': itemdata})
+    card=req.session.get('cart',[])
+    if card:
+        count=len(card)
+        return render(req, 'card_detail.html', {'product': itemdata,'count':count})
+    return render(req, 'card_detail.html', {'product': itemdata,})
 
 def addtocart(req,pk):
     if req.method == "POST":
@@ -156,7 +164,8 @@ def addtocart(req,pk):
         req.session['quantity'] = quantity
         req.session['cart'] = cart
         itemdata = Productinfo.objects.get(id=pk)
-        return render(req,'card_detail.html',{'product':itemdata})
+        count=len(cart)
+        return render(req,'card_detail.html',{'product':itemdata ,'count':count})
     return render(req,'card_detail.html')
 
 def usercart(req):

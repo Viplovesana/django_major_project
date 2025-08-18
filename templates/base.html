@@ -27,13 +27,14 @@
     <a class="navbar-brand" href="#"><img src="{% static 'images/logo.jpg' %}" alt="logo" ></a>
     <div class="input">
      <input class="form-control me-2 nav-inp" type="search" placeholder="Search" aria-label="Search">
-    
+     <i class="fa-solid fa-magnifying-glass search-icon"></i>
      </div>
      
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse midea-nav" id="navbarTogglerDemo02">
+ 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
@@ -53,20 +54,26 @@
                 <li><a class="dropdown-item" href="#">Cameras & Accessories</a></li>
           
           </ul>
-       <i class="fa-solid fa-cart-shopping icon-cart"></i>
-        <i class="fa-solid fa-magnifying-glass serch-icon"></i>
-    
+       <i class="fa-solid fa-cart-shopping icon-cart">
+        {% if count %}
+        <div class="count-box">
+        <span class="item-count">{{count|default:0}}</span>
+        </div>
+        {% endif %}
+        </i>
         <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="{% url 'usercart' %}">Cart</a>
-        </li> 
-  
+      
+        </li>
+   
       </ul>
+  
 
         {% comment %} <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login ></a>
-        
-        </li>               {% endcomment %}
+         <li class="nav-item">
+           <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login ></a>
+         </li>
+        {% endcomment %}
 
 {% if userpro %}
      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -84,6 +91,7 @@
         </li> 
 {% endif %}
     </div>
+    
   </div>
 </nav>
 
