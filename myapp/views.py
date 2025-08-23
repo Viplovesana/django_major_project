@@ -4,10 +4,13 @@ from.models import User,Query,Productinfo
 # Create your views here.
 
 def home(req):
+    userid = req.session.get('user_id')
     card=req.session.get('cart',[])
-    if card:
-        count=len(card)
-        return render(req,"home.html",{'count':count})
+    if userid:
+        if card:
+             count=len(card)
+             return render(req,"home.html",{'count':count ,'userid':userid})
+        return render(req,"home.html",{'userid':userid})
     return render(req,"home.html")
 
 def register(req):
@@ -43,10 +46,12 @@ def login(req):
         else:
             match=User.objects.filter(email=email)
             if match:
-                usermatch=User.objects.get(email=email)
+                usermatch=User.objects.get(email=email) 
                 pass1=usermatch.password
                 if password==pass1:
-                    return render(req,"user_dashboard.html",{"userpro":usermatch})
+                    user_id= usermatch.id
+                    req.session['user_id']=user_id         
+                    return redirect('userdash')
                 else:
                     msg="password not matched"
                     return render(req,"login.html",{"msg":msg})
@@ -54,13 +59,32 @@ def login(req):
                 msg="Email not registerd"
                 return render(req,"register.html",{"email":msg})        
     return render(req,"login.html")
+
+def userdash(req):
+    userid = req.session.get('user_id')
+    if userid:
+        userdata=User.objects.get(id=userid)
+        return render(req,"user_dashboard.html",{"userpro":userdata,'userid':userid})   
+    else:
+       return redirect('login')
+
 def logout(req):
-    pass
+    userid = req.session.get('user_id')
+    if userid:
+       del req.session['user_id']
+       return redirect('home')
+    return redirect('login')
+
+
+
                 
 def query(req,pk):
+    userid = req.session.get('user_id')    
     userdata=User.objects.get(id=pk)
-    return render(req,"user_dashboard.html",{"userpro":userdata,"query":pk})
+    return render(req,"user_dashboard.html",{"userpro":userdata,"query":pk,'userid':userid})
+
 def querydata(req,pk):
+    userid = req.session.get('user_id')
     if req.method == "POST":
         name=req.POST.get("name")
         email=req.POST.get("email")
@@ -68,19 +92,21 @@ def querydata(req,pk):
         Query.objects.create(name=name,email=email,query=query)
         userdata=User.objects.get(id=pk)
         aquery=Query.objects.filter(email=email)
-        return render(req,"user_dashboard.html",{"userpro":userdata,"query":pk,"aquery":aquery})      
+        return render(req,"user_dashboard.html",{"userpro":userdata,"query":pk,"aquery":aquery,'userid':userid})      
 
 def allquery(req,pk):
+    userid = req.session.get('user_id')
     userdata=User.objects.get(id=pk)
     email=userdata.email
     aquery=Query.objects.filter(email=email)
-    return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery})
+    return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery,'userid':userid})
 
 def edit(req,id,pk):
+    userid = req.session.get('user_id')
     print(id,pk)
     editdata=Query.objects.get(id=id)
     userdata=User.objects.get(id=pk)
-    return render(req,"user_dashboard.html",{"userpro":userdata,"editdata":editdata})
+    return render(req,"user_dashboard.html",{"userpro":userdata,"editdata":editdata,'userid':userid})
 
 def update(req,id,pk):
     if req.method == "POST":
