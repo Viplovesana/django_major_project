@@ -8,13 +8,23 @@
 }
 
 /* /////////////////////////////////////// */
+.main-nav{
+ width: 100%;
+ top: 0;
+ position: fixed !important;
+      z-index: 950 !important;
+      width: 100% !important;
+       background: #000;
+
       .navbar {
       display: flex;
       align-items: center;
       justify-content:space-around !important;
-      background: #000;
+     
       padding: 16px 26px !important;
+     
     }
+}
 
     /* Left Section */
     .navbar-left {
@@ -196,6 +206,8 @@
       #bottomsearch{
         display: block !important;
         padding: 2px;
+        margin-top: -1%;
+       
       }
       .link1 span{
         display: none !important;
@@ -251,7 +263,10 @@ i {
   padding-top: 5px;
   border-radius: 8px;
   border: 1px solid black;
-  position: relative;
+  position: absolute;
+  top: 62%;
+  left: 13%;
+  z-index: 888;
   /* left: */
 
 }
@@ -914,11 +929,26 @@ a:hover {
 }
 
 /* ...................................media query........................................................... */
-@media only screen and (max-width: 800px){
-    .navbar-brand img{
-    height:23px;
-    margin-bottom: 10px;
+@media only screen and (max-width: 800px){     
+.main-nav{
+ width: 100%;
+ top: 0;
+ position: fixed !important;
+      z-index: 950 !important;
+      width: 100% !important;
+       background: #000;
+
+      .navbar {
+      display: flex;
+      align-items: center;
+      justify-content:space-around !important;
+     
+      padding: 1.5px 26px !important;
+     
+    }
 }
+
+
   .input{
    width: 52%;
 }
@@ -1061,6 +1091,23 @@ nav.custom-nav {
   margin-top: 10px;
   margin-top: 30px;
   font-size:15px;
+}
+.homebtn{
+  background-color: #00b386 !important;
+  text-decoration: none;
+  font-size: 10px !important;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  border-radius: 8px;
+  border: 1px solid black;
+  position: absolute;
+  top: 62%;
+  left: 13%;
+  z-index: 888;
+  /* left: */
+
 }
 
 }
