@@ -1,9 +1,20 @@
-{% extends "base.html" %}
 {% load static %}
-{% block tital %}
-admin_dashboard
-{% endblock  %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" >
+       <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"/>
+  <title>admin-dashboard</title>
+</head>
+<body>
+  
+
 <section class="dash_board">
   <!-- Navbar (for small screens) -->
   <nav class="navbar navbar-dark bg-dark d-md-none">
@@ -25,10 +36,10 @@ admin_dashboard
         </div>
 
         <div class="d-flex flex-column align-items-center py-4">
-          <img src="{% static 'images/admin.png' %}" 
+          <img src="{% static 'images/myimage.jpg' %}" 
                alt="Admin" class="rounded-circle shadow"
                style="width: 100px; height: 100px; object-fit: cover;">
-          <h6 class="text-white mt-3 text-center">{{ welcome }}</h6>
+          <h6 class="text-white mt-3 text-center">Viplove</h6>
         </div>
        <form action="{% url 'dash' %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -52,9 +63,12 @@ admin_dashboard
         </form>
         <form action="{% url 'logout' %}" method="POST">
          {% csrf_token %}
-        <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">
-        <i class="fas fa-sign-out-alt me-2"></i>Logout
-         </button>
+        <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-sign-out-alt me-2"></i>Logout</button>
+         <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+        <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-home me-2"></i> Go to Home</button>
+        </form>
+
         </form>
 
   
@@ -117,4 +131,6 @@ admin_dashboard
 </script>
 
 
-{% endblock  %}
+
+</body>
+</html>

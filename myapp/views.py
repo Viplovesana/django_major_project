@@ -41,8 +41,8 @@ def login(req):
         email=req.POST.get('email')
         password=req.POST.get('password')
         if email == "viplovesana90@gmail.com" and password =="Viplove@123":
-            msg ="Welcome Admin"
-            return render(req,"admin_dashboard.html",{"welcome":msg})
+            req.session['admin_id']="viplove_admin"  
+            return redirect('admindash')
         else:
             match=User.objects.filter(email=email)
             if match:
@@ -67,6 +67,14 @@ def userdash(req):
         return render(req,"user_dashboard.html",{"userpro":userdata,'userid':userid})   
     else:
        return redirect('login')
+    
+def admindash(req):
+    admin_id=req.session.get('admin_id')
+    if admin_id:
+        return render(req,"admin_dashboard.html")
+    else:
+        return redirect('login')
+
 
 def logout(req):
     userid = req.session.get('user_id')
