@@ -156,6 +156,16 @@ def search(req,pk):
     aquery=Query.objects.filter(Q(email=userdata.email)&Q(query__contains=searchdata)) 
     return render(req,"user_dashboard.html",{"userpro":userdata,"aquery":aquery}) 
 
+def menusearch(req):
+    if req.method == "POST":
+        searchinp = req.POST.get("search")
+        inputsearch =Productinfo.objects.filter(Q(pro_name__icontains=searchinp) & Q(pro_disc__icontains=searchinp)  )
+        return render(req, "allproducts.html", {
+        "product": inputsearch,})
+    return render(req, "home.html" )
+
+
+   
 
 
 # .....................Admin dashboard code.......................................................

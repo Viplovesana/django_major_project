@@ -30,47 +30,53 @@
     <div class="row">
 
       <!-- Sidebar -->
-      <nav class="col-md-3 col-lg-2 sidebar d-md-block d-none nav-barr side-barrrr" id="sidebarMenu">
-        <div class="d-flex justify-content-end d-md-none">
-          <button class="btn btn-sm side-close" id="closeSidebar">&times;</button>
-        </div>
+  <nav class="col-md-3 col-lg-2 admin-sidebar d-md-block d-none nav-barr side-barrrr" id="adminSidebarMenu">
+  <div class="d-flex justify-content-end d-md-none">
+    <button class="btn btn-sm side-close" id="closeSidebar">&times;</button>
+  </div>
 
-        <div class="d-flex flex-column align-items-center py-4">
-          <img src="{% static 'images/myimage.jpg' %}" 
-               alt="Admin" class="rounded-circle shadow"
-               style="width: 100px; height: 100px; object-fit: cover;">
-          <h6 class="text-white mt-3 text-center">Viplove</h6>
-        </div>
-       <form action="{% url 'dash' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-home me-2"></i>Dashboard</button>
-        </form>
-        <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">➕ Add Product</button>
-        </form>
-         <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-box-open me-2"></i>Products</button>
-        </form>
-         <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-users me-2"></i>Customers</button>
-        </form>
-         <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-star me-2"></i>Reviews</button>
-        </form>
-        <form action="{% url 'adminlogout' %}" method="POST">
-         {% csrf_token %}
-        <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-sign-out-alt me-2"></i>Logout</button>
-        </form>
-         <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
-         {% csrf_token %}
-        <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-home me-2"></i> Go to Home</button>
-        </form>
-  
-      </nav>
+  <div class="d-flex flex-column align-items-center py-4">
+    <img src="{% static 'images/myimage.jpg' %}" 
+         alt="Admin" class="rounded-circle shadow"
+         style="width: 100px; height: 100px; object-fit: cover;">
+    <h6 class="text-white mt-3 text-center">Viplove</h6>
+  </div>
+
+  <form action="{% url 'dash' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-home me-2"></i>Dashboard</button>
+  </form>
+
+  <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">➕ Add Product</button>
+  </form>
+
+  <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-box-open me-2"></i>Products</button>
+  </form>
+
+  <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-users me-2"></i>Customers</button>
+  </form>
+
+  <form action="{% url 'proform' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-star me-2"></i>Reviews</button>
+  </form>
+
+  <form action="{% url 'adminlogout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-sign-out-alt me-2"></i>Logout</button>
+  </form>
+
+  <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start"><i class="fas fa-home me-2"></i> Go to Home</button>
+  </form>
+</nav>
 
       <!-- Main Content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">

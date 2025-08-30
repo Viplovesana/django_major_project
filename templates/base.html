@@ -174,9 +174,16 @@
     </div>
 
     <!-- Search -->
-    <div class="search-bar" id="topsearch">
-      <input type="text" placeholder="What are you looking for ?">
-    </div>
+     
+<form action="{% url 'menusearch' %}" method="POST" enctype="multipart/form-data" class="search-form">
+  {% csrf_token %}
+  <div class="search-bar">
+    <input type="search" name="search" placeholder="What are you looking for ?" required>
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+</form>
+
+  
 
     <!-- Right -->
     <div class="navbar-right">
@@ -203,10 +210,12 @@
   </nav>
 
         <!-- Search -->
-    <div class="search-bar " id="bottomsearch">
-
-      <input type="text" placeholder="What are you looking for ?">
-    </div>
+  <form action="#" method="GET" class="search-form-small">
+  <div class="bottomsearch">  
+    <input type="text" name="q" placeholder="What are you looking for ?" required>
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+</form>
 
 </div> 
 

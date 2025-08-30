@@ -8,18 +8,19 @@
 {% endblock title %}
 
 {% block link %}
-  <link rel="stylesheet" href="{% static 'CSS/address.css' %}">
+  <link rel="stylesheet" href="{% static 'css/address.css' %}"> 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   {% endblock link %}
 
 {% block content %}
+  <link rel="stylesheet" href="{% static 'css/address.css' %}"> 
 
   <main class="checkout">
     <!-- === Billing Address === -->
 <section class="form">
   <h2>Billing Address</h2>
-  <p class="sub">We’ll use this information to send your receipt & updates.</p>
+  <p class="sub">ENTER SHIPPING INFORMATION.</p>
 
   <form action="/submit-billing" method="POST">
     <div class="field full">
@@ -48,7 +49,7 @@
       <input id="addr2" name="address2" type="text" value="" placeholder="Apartment, suite, etc. (optional)">
     </div>
 
-    <div class="field">
+    <!-- <div class="field">
       <label for="country">Country *</label>
       <select id="country" name="country" required>
         <option value="" selected disabled>Select country</option>
@@ -57,7 +58,7 @@
         <option value="United Kingdom">United Kingdom</option>
         <option value="Canada">Canada</option>
       </select>
-    </div>
+    </div> -->
 
     <div class="field">
       <label for="zip">Zip / Postal Code *</label>
@@ -69,7 +70,7 @@
       <input id="city" name="city" type="text" value="" placeholder="City" required>
     </div>
 
-    <div class="field">
+    <!-- <div class="field">
       <label for="state">State / Province *</label>
       <select id="state" name="state" required>
         <option value="" selected disabled>Choose state</option>
@@ -84,26 +85,27 @@
         <option value="Gujrat">Gujrat</option>
         <option value="Chattishgarh">Chattishgarh</option>
       </select>
-    </div>
+    </div> -->
      <div class="field full">
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
   </form>
+  
 </section>
+
+
 
     <!-- === Order Summary === -->
     <aside class="summary">
       <h2>Order Summary</h2>
-      <div class="line"><span>Items ({{count}})</span><strong>₹{{totalmrp}}</strong></div>
-      <div class="line"><span>Promotional Savings</span><strong style="color:#dc2626">- ₹{{savings}}</strong></div>
+     
+      <div class="line"><span>Promotional Savings</span><strong style="color:#dc2626">- ₹{{totalsavings}}</strong></div>
       <div class="line"><span>Subtotal After Discounts</span><strong>₹{{totalprice}}</strong></div>
       <div class="line"><span>Shipping</span><strong style="color:#16a34a">FREE</strong></div>
       <div class="line"><span>Estimated Tax</span><strong>₹0.00</strong></div>
       <div class="total"><span>Total</span><span>₹{{totalprice}}</span></div>
-    <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="number" name="amount" value="{{totalprice}}" id="" hidden>
-      <button class="btn-pay" type="submit">Pay Now</button>
+     <form action="{% url 'payment' %}">
+        <button class="btn btn-success w-100 mt-3 text-black cheack-out" >Proceed To Pay</button>
       </form>
       {% if payment %}
          <form action="{% url 'paymenthandle' %}" method="post" enctype="multipart/form-data">

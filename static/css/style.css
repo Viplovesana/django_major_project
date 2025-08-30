@@ -17,7 +17,7 @@
        background: #000;
 
       .navbar {
-      display: flex;
+      display: flex ;
       align-items: center;
       justify-content:space-around !important;
      
@@ -51,34 +51,54 @@
     }
 
     /* Search Bar */
-    .search-bar {
-      flex: 1;
-      align-items: center;
-      text-align: center;
-      max-width: 500px;
-      
-      /* margin: 0 20px; */
-      display: flex;
-    }
+.search-form {
+  width: 500px;                /* form full width lega */
+  display: flex;
+  justify-content: center;    /* center me rahega */
+}
 
-    .search-bar input {
-              align-items: center;
-      text-align: center;
-      width: 100%;
-      padding: 10px 15px;
-      border-radius: 10px;
-      /* margin: 0px 6px; */
-      border: none;
-      outline: none;
-    }
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;           /* maximum width fix */
+  position: relative;
+}
 
+.search-bar input {
+  flex: 1;
+  padding: 10px 45px 10px 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.search-bar button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #444;
+}
+
+    #search-icon{
+      color: #000 !important;
+      position: relative;
+      left: 94%; 
+    }
+/* 
     .search-bar button {
       padding: 10px 15px;
       background: #fff;
       border: none;
       border-radius: 0 6px 6px 0;
       cursor: pointer;
-    }
+    } */
 
     /* Right Section */
     .navbar-right {
@@ -104,9 +124,12 @@
       padding: 2px 6px;
       border-radius: 50%;
     }
-    #bottomsearch{
+    .search-form-small{
+
         display: none;
     }
+    
+ 
 
     
 /* Dropdown menu CSS is start here */
@@ -203,11 +226,60 @@
       .navbar-right span.location {
         display: none; /* hide location on mobile */
       }
-      #bottomsearch{
-        display: block !important;
-        padding: 2px;
-        margin-top: -1%;
-       
+  
+
+      /* Hide by default */
+.search-form-small {
+  display: none;
+}
+
+/* Small screen me show karo */
+@media (max-width: 768px) {
+  .search-form-small {
+    display: block;
+    padding: 10px;
+    width: 100%;
+    height:30px;
+  
+  
+    /* margin-bottom: 4px; */
+  }
+
+  .bottomsearch {
+    position: relative;
+    bottom: 15px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .bottomsearch input {
+    width: 100%;
+    padding: 10px 45px 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 8px;
+  
+  }
+
+  .bottomsearch button {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+  }
+}
+
+/* Desktop pe normal search-bar hi chalegi */
+
+      .search-form{
+        display: none;
       }
       .link1 span{
         display: none !important;
@@ -333,7 +405,7 @@ font-weight:600 !important;
    body {
       overflow-x: hidden;
     }
-    .sidebar {
+    .sidebar{
       height: 100vh;
       background-color:#1a1a1a !important;
       color: white;
@@ -475,32 +547,59 @@ font-weight:600 !important;
 
 }
 
-    .sidebar {
-      width: 250px;
-      background-color: #1e1e2f;
-      min-height: 100vh;
-      top: 0% !important;
-      position: fixed !important;
-    }
-    .sidebar .nav-link {
-      color: #fff;
-      padding: 12px 20px;
-      font-size: 16px;
-    }
-    .sidebar .nav-link:hover {
-      background-color: #343a40;
-      color: #fff;
-    }
-    .content-area {
-      margin-left: 250px;
-      padding: 30px;
-    }
-    .form-card {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-    }
+ /* User Sidebar */
+.user-sidebar {
+  width: 250px;
+  background-color: #1a1a1a !important;
+  min-height: 100vh;
+  top: 0% !important;
+  position: fixed !important;
+}
+
+.user-sidebar .nav-link {
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.user-sidebar .nav-link:hover {
+  background-color: #343a40;
+  color: #fff;
+}
+
+/* Admin Sidebar */
+.admin-sidebar {
+  width: 250px;
+  background-color:#1a1a1a; /* thoda different shade */
+  min-height: 100vh;
+  top: 0% !important;
+  position: fixed !important;
+}
+
+.admin-sidebar .nav-link {
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.admin-sidebar .nav-link:hover {
+  background-color: #3d4450;
+  color: #fff;
+}
+
+/* Common content area */
+.content-area {
+  margin-left: 250px;
+  padding: 30px;
+}
+
+.form-card {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
 
 /* ..................................content-section..................................................... */
 
@@ -1117,6 +1216,8 @@ nav.custom-nav {
 }
 
 }
+
+/* ................................................................................................ */
 
 
 

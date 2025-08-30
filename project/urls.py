@@ -37,6 +37,8 @@ urlpatterns = [
     path('delete/<int:id>/<int:pk>', views.delete, name='delete'),
     path('search/<int:pk>/', views.search, name='search'),
 
+    path('searchproduct/', views.menusearch, name='menusearch'),
+
     path('proform/', views.proform, name='proform'),
     path('additem/', views.additem, name='additem'),
     path('dash/', views.dash, name='dash'),
@@ -47,5 +49,6 @@ urlpatterns = [
     path('remove_cart/<int:pk>', views.remove_cart, name='remove_cart'),
     path('adress/', views.checkout, name='checkout'),   
     path('payment/',views.payment,name='payment'),
-    path('paymenthandle/',views.paymenthandle,name='paymenthandle'), 
+    path('paymenthandle/',views.paymenthandle,name='paymenthandle'),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
