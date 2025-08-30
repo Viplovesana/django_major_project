@@ -14,11 +14,12 @@
 </head>
 <body>
 <section class="login-sec">
-  <div class="logo"><a href="{% url 'home' %}">croma</a></div>
+
 
   <div class="position-absolute top-50 start-50 translate-middle w-100" style="max-width: 400px;">
+
     <div class="card p-4 shadow-lg" style="background-color: rgba(0, 0, 0, 0.6); border: none;">
-      <h3 class="text-center mb-3 text-white">Login</h3>
+      <h3 class="text-center mb-3 text-white">Login  <a href="{% url 'home' %}"><i class="fa fa-times" style="font-size:30px; cursor:pointer; left: 130px; position: relative;font-size: 20px;"></i></a></h3>   
 
       {% if msg %}
         <div class="alert alert-success">{{ msg }}</div>

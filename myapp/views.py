@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
-from.models import User,Query,Productinfo
+from.models import User,Query,Productinfo,Payment
+from django.views.decorators.csrf import csrf_exempt
+import razorpay 
 
 # Create your views here.
 
@@ -82,9 +84,13 @@ def logout(req):
        del req.session['user_id']
        return redirect('home')
     return redirect('login')
-
-
-
+def adminlogout(req):
+    admin_id=req.session.get('admin_id')
+    if admin_id:
+        del req.session['admin_id']
+        return redirect('home')
+    else:
+        return redirect('login')
                 
 def query(req,pk):
     userid = req.session.get('user_id')    
@@ -243,3 +249,114 @@ def remove_cart(req,pk):
         return redirect('usercart')
     else:
         return redirect('usercart')
+    
+
+def checkout(req):
+    cart = req.session.get('cart',[])
+    quantity = req.session.get('quantity',[])
+     
+    print(cart,quantity)
+    l=[]
+    totalprize=0
+    totalsavings=0
+    count=len(cart)
+    for i ,j in zip(cart,quantity):
+        pro_i = Productinfo.objects.get(id=i)
+        data={
+            'id':pro_i.id,
+            'name':pro_i.pro_name,
+            'disc':pro_i.pro_disc,
+            'price':pro_i.pro_price,
+            'mrp':pro_i.pro_mrp,
+            'image':pro_i.pro_image,
+            'quantity':j,
+            'totalprice':pro_i.pro_price*j,
+            'savings': pro_i.pro_mrp - pro_i.pro_price,
+            'totalsavings':(pro_i.pro_mrp - pro_i.pro_price) * j
+        }
+        totalprize+=pro_i.pro_price*j
+        totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
+        l.append(data)
+       
+    return render(req,'adress.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count,})
+
+
+
+csrf_exempt
+def payment(req):
+    if req.method == "POST":
+        print("hello")
+        userid= req.session.get('user_id')
+        amount = int(req.POST.get('amount')) * 100  # Convert to paise
+        client = razorpay.Client(auth=("rzp_test_8MpcoTaUXnGlMQ", "wz2Q1xWs4LueA8LZwxIBMuPR"))
+        order_data = {
+            "amount": amount,
+            "currency": "INR",
+            "receipt": "order_rcptid_11",
+            "payment_capture": 1
+        }
+        order = client.order.create(data=order_data)
+        Payment.objects.create(
+        order_id=order["id"],
+        amount=amount,
+        status="Created",
+        user_id=userid
+        )
+        payment = {
+            "order_id": order["id"],
+            "amount": amount,
+            "razorpay_key": "rzp_test_8MpcoTaUXnGlMQ",
+            "currency": "INR",
+            "callback_url": "/paymenthandle/"
+        }
+        cart = req.session.get('cart',[])
+        quantity = req.session.get('quantity',[])
+        if userid:
+            if cart :
+                print(cart,quantity)
+                l=[]
+                totalprize=0
+                totalsavings=0
+                count=len(cart)
+                for i ,j in zip(cart,quantity):
+                    pro_i = Productinfo.objects.get(id=i)
+                    data={
+                        'id':pro_i.id,
+                        'name':pro_i.pro_name,
+                        'disc':pro_i.pro_disc,
+                        'price':pro_i.pro_price,
+                        'mrp':pro_i.pro_mrp,
+                        'image':pro_i.pro_image,
+                        'quantity':j,
+                        'totalprice':pro_i.pro_price*j,
+                        'savings': pro_i.pro_mrp - pro_i.pro_price,
+                        'totalsavings':(pro_i.pro_mrp - pro_i.pro_price) * j
+                    }
+                    totalprize+=pro_i.pro_price*j
+                    totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
+                    l.append(data) 
+                    return render(req,'adress.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count,})
+                else:
+                     return render(req,'adress.html',{'userid':userid})
+        else:
+            return redirect('login')
+    return render(req,'adress.html',{'userid':userid,'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count})
+
+@csrf_exempt  
+def paymenthandle(request):
+    if request.method=='POST':
+        client = razorpay.Client(auth=("rzp_test_8MpcoTaUXnGlMQ", "wz2Q1xWs4LueA8LZwxIBMuPR"))
+        params_dict = {
+            'razorpay_order_id': request.POST.get('razorpay_order_id'),
+            'razorpay_payment_id': request.POST.get('razorpay_payment_id'),
+            'razorpay_signature': request.POST.get('razorpay_signature')
+        }
+        # Verify the payment signature
+        client.utility.verify_payment_signature(params_dict)
+        payment = Payment.objects.get(order_id=request.POST.get('razorpay_order_id'))
+        payment.payment_id = request.POST.get('razorpay_payment_id')
+        payment.signature = request.POST.get('razorpay_signature')
+        payment.status = "Paid"
+        payment.save()
+        return redirect('home')
+

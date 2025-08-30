@@ -66,7 +66,10 @@ usercart page
                     <span class="text-black">Total</span>
                     <span class="text-black">₹{{ totalprice }}</span>
                 </div>
-                <button class="btn btn-success w-100 mt-3 text-black cheack-out">Checkout</button>
+                <form action="{% url 'checkout' %}">
+                <button class="btn btn-success w-100 mt-3 text-black cheack-out" >Checkout</button>
+                </form>
+            
             </div>
         </div>
     </div>

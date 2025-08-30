@@ -21,3 +21,18 @@ class Productinfo(models.Model):
     pro_disc=models.CharField(max_length=100,null=True)
     pro_image=models.ImageField(upload_to='file')
     pro_mrp=models.IntegerField(null=True) 
+
+
+# ...........................payement.................................................
+
+class Payment(models.Model):
+    user_id=models.IntegerField()
+    order_id = models.CharField(max_length=100)
+    payment_id = models.CharField(max_length=100, blank=True)
+    signature = models.CharField(max_length=255, blank=True)
+    amount = models.IntegerField()  
+    status = models.CharField(max_length=20, default="Created")  
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta():
+        db_table='Payment'

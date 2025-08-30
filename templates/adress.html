@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+  Billing Address
+{% endblock title %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'CSS/address.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  {% endblock link %}
+
+{% block content %}
+
+  <main class="checkout">
+    <!-- === Billing Address === -->
+<section class="form">
+  <h2>Billing Address</h2>
+  <p class="sub">We’ll use this information to send your receipt & updates.</p>
+
+  <form action="/submit-billing" method="POST">
+    <div class="field full">
+      <label for="email">Email Address *</label>
+      <input id="email" name="email" type="email" value="" placeholder="you@example.com" required>
+      <span class="hint">We’ll never share your email.</span>
+    </div>
+
+    <div class="field">
+      <label for="first">Name *</label>
+      <input id="first" name="name" type="text" value="" placeholder="name" required minlength="2">
+    </div>
+
+    <div class="field">
+      <label for="last">Mobile no *</label>
+      <input id="last" name="mobile" type="tel" value="" placeholder="Enter the number" required pattern="[0-9]{10}" maxlength="10">
+    </div>
+
+    <div class="field full">
+      <label for="addr1">Address Line 1 *</label>
+      <input id="addr1" name="address1" type="text" value="" placeholder="House no, street" required>
+    </div>
+
+    <div class="field full">
+      <label for="addr2">Address Line 2</label>
+      <input id="addr2" name="address2" type="text" value="" placeholder="Apartment, suite, etc. (optional)">
+    </div>
+
+    <div class="field">
+      <label for="country">Country *</label>
+      <select id="country" name="country" required>
+        <option value="" selected disabled>Select country</option>
+        <option value="United States">United States</option>
+        <option value="India">India</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Canada">Canada</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="zip">Zip / Postal Code *</label>
+      <input id="zip" name="zip" type="text" value="" inputmode="numeric" placeholder="123456" required pattern="[0-9]{6}" maxlength="6">
+    </div>
+
+    <div class="field">
+      <label for="city">City *</label>
+      <input id="city" name="city" type="text" value="" placeholder="City" required>
+    </div>
+
+    <div class="field">
+      <label for="state">State / Province *</label>
+      <select id="state" name="state" required>
+        <option value="" selected disabled>Choose state</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Panjab">Panjab</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Gujrat">Gujrat</option>
+        <option value="Chattishgarh">Chattishgarh</option>
+      </select>
+    </div>
+     <div class="field full">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  </form>
+</section>
+
+    <!-- === Order Summary === -->
+    <aside class="summary">
+      <h2>Order Summary</h2>
+      <div class="line"><span>Items ({{count}})</span><strong>₹{{totalmrp}}</strong></div>
+      <div class="line"><span>Promotional Savings</span><strong style="color:#dc2626">- ₹{{savings}}</strong></div>
+      <div class="line"><span>Subtotal After Discounts</span><strong>₹{{totalprice}}</strong></div>
+      <div class="line"><span>Shipping</span><strong style="color:#16a34a">FREE</strong></div>
+      <div class="line"><span>Estimated Tax</span><strong>₹0.00</strong></div>
+      <div class="total"><span>Total</span><span>₹{{totalprice}}</span></div>
+    <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="number" name="amount" value="{{totalprice}}" id="" hidden>
+      <button class="btn-pay" type="submit">Pay Now</button>
+      </form>
+      {% if payment %}
+         <form action="{% url 'paymenthandle' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js"
+          data-key="{{payment.razorpay_key}}"
+          data-amount="{{ payment.amount }}"
+          data-currency="{{payment.currency}}"
+          data-order_id="{{ payment.order_id }}"
+          data-buttontext="Pay with Razorpay"
+          data-name="Your Company"
+          data-description="Test Transaction"
+          data-image="https://yourdomain.com/logo.png"
+          data-prefill.name="Dharmendra"
+          data-prefill.email="dharmendra@example.com"
+          data-theme.color="#F37254">
+      </script>
+     </form>
+      {% endif %}
+    </aside>
+  </main>
+
+{% endblock content %}
+
+
+{% block script %}
+  <script>
+    const form = document.querySelector('form');
+    const button = document.querySelector('.btn-pay');
+
+  </script>
+{% endblock script %}
