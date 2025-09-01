@@ -743,6 +743,22 @@ font-weight:600 !important;
   }
  
 }
+
+.addvertive-dddd{
+  width: 75%;
+  display: flex;
+  gap: 15px;
+  margin: auto;
+    div{
+    width: 25%;
+    img{
+            width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+ 
+}
 .add-tital2{
   margin-left: 195px;
   margin-top: 10px;
@@ -1231,6 +1247,12 @@ nav.custom-nav {
   margin: auto;
   padding: 9px;
 }
+.addvertive-dddd{
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  
+  }
 .add-tital2{
   margin-left:15px;
   font-size:15px;
