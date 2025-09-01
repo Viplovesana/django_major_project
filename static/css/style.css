@@ -130,7 +130,73 @@
     }
     
  
+/* ..........................................crasoul 2nd............................................... */
 
+.crousal_title{
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.crousal_titlle{
+  position: absolute;
+  bottom: 260px; /* or top: 20px; depending on where you want it */
+  left: 68%;
+  transform: translateX(-50%);
+  width: 700px;
+  padding: 20px;
+  z-index: 2;
+}
+.craubtn{
+  background-color: #2fddb2;
+  text-decoration: none;
+  font-size: 17px;
+  padding-left: 18px;
+  padding-right:18px ;
+  padding-top:10px ;
+  padding-bottom:10px ;
+  color: #000 !important;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+   @media (max-width: 768px) {
+    .crousal_titlle{
+  position: absolute;
+  bottom: 0px; /* or top: 20px; depending on where you want it */
+  left: 68%;
+  transform: translateX(-50%);
+  width: 200px;
+  padding: 20px;
+  z-index: 2;
+  display: block;
+}
+
+.crousal_title{
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+  display: none;
+}
+.craubtn{
+  background-color: #2fddb2;
+  text-decoration: none;
+  font-size: 9px;
+  padding-left: 10px;
+  padding-right:10px ;
+  padding-top:5px ;
+  padding-bottom:5px ;
+  color: #000 !important;
+  font-weight: bold;
+  border-radius: 10px;
+  position: relative;
+  top: -25px;
+}
+.crautit{
+  font-size: 12px !important;
+}
+
+    }
+/* .................................................................................................... */
     
 /* Dropdown menu CSS is start here */
 .menu-wrapper {
