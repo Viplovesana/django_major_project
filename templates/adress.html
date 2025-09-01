@@ -104,8 +104,10 @@
       <div class="line"><span>Shipping</span><strong style="color:#16a34a">FREE</strong></div>
       <div class="line"><span>Estimated Tax</span><strong>₹0.00</strong></div>
       <div class="total"><span>Total</span><span>₹{{totalprice}}</span></div>
-     <form action="{% url 'payment' %}">
-        <button class="btn btn-success w-100 mt-3 text-black cheack-out" >Proceed To Pay</button>
+     <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+      <input type="number" name="amount" value="{{totalprice}}" hidden>
+        <button class="btn btn-success w-100 mt-3 text-black cheack-out" type="submit">Proceed To Pay</button>
       </form>
       {% if payment %}
          <form action="{% url 'paymenthandle' %}" method="post" enctype="multipart/form-data">

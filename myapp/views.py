@@ -175,6 +175,12 @@ def productdelete(req,id):
         deletedata=Productinfo.objects.get(id=id)
         # deletedata.delete() 
         return redirect('productlist') 
+    
+def customers(req):
+    print("customer")
+    customer=User.objects.all()
+    return render(req,'admin_dashboard.html',{'customer':customer}) 
+       
      
  
 
@@ -215,19 +221,23 @@ def carddetail(req,pk):
     return render(req, 'card_detail.html', {'product': itemdata,})
 
 def addtocart(req,pk):
-    if req.method == "POST":
-        quantity = req.session.get( 'quantity',[])
-        cart = req.session.get( 'cart',[])
-        quan = int(req.POST.get( 'quantity' ))
-        if pk not in cart:
-            quantity.append(quan)
-            cart.append(pk) 
-        req.session['quantity'] = quantity
-        req.session['cart'] = cart
-        itemdata = Productinfo.objects.get(id=pk)
-        count=len(cart)
-        return render(req,'card_detail.html',{'product':itemdata ,'count':count})
-    return render(req,'card_detail.html')
+    userid = req.session.get('user_id')
+    if userid:
+        if req.method == "POST":
+            quantity = req.session.get( 'quantity',[])
+            cart = req.session.get( 'cart',[])
+            quan = int(req.POST.get( 'quantity' ))
+            if pk not in cart:
+                quantity.append(quan)
+                cart.append(pk) 
+            req.session['quantity'] = quantity
+            req.session['cart'] = cart
+            itemdata = Productinfo.objects.get(id=pk)
+            count=len(cart)
+            return render(req,'card_detail.html',{'product':itemdata ,'count':count})
+        return render(req,'card_detail.html')
+    else:
+        return redirect('login')
 
 def usercart(req):
     cart = req.session.get('cart',[])
@@ -356,28 +366,34 @@ def payment(req):
                     totalprize+=pro_i.pro_price*j
                     totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
                     l.append(data) 
-                    return render(req,'adress.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count,})
-                else:
-                     return render(req,'adress.html',{'userid':userid})
+                return render(req,'adress.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count,'payment':payment})
+            else:
+                return render(req,'adress.html',{'userid':userid})
         else:
             return redirect('login')
-    return render(req,'adress.html',{'userid':userid,'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count})
+    return redirect('checkout')
 
 @csrf_exempt  
-def paymenthandle(request):
-    if request.method=='POST':
+def paymenthandle(req):
+    if req.method=='POST':
         client = razorpay.Client(auth=("rzp_test_8MpcoTaUXnGlMQ", "wz2Q1xWs4LueA8LZwxIBMuPR"))
         params_dict = {
-            'razorpay_order_id': request.POST.get('razorpay_order_id'),
-            'razorpay_payment_id': request.POST.get('razorpay_payment_id'),
-            'razorpay_signature': request.POST.get('razorpay_signature')
+            'razorpay_order_id': req.POST.get('razorpay_order_id'),
+            'razorpay_payment_id': req.POST.get('razorpay_payment_id'),
+            'razorpay_signature': req.POST.get('razorpay_signature')
         }
         # Verify the payment signature
         client.utility.verify_payment_signature(params_dict)
-        payment = Payment.objects.get(order_id=request.POST.get('razorpay_order_id'))
-        payment.payment_id = request.POST.get('razorpay_payment_id')
-        payment.signature = request.POST.get('razorpay_signature')
+        payment = Payment.objects.get(order_id=req.POST.get('razorpay_order_id'))
+        payment.payment_id = req.POST.get('razorpay_payment_id')
+        payment.signature = req.POST.get('razorpay_signature')
         payment.status = "Paid"
         payment.save()
+        cart = req.session.get('cart',[])
+        quantity = req.session.get('quantity',[])
+        if cart:
+            cart.clear()
+            quantity.clear()
+            req.session.modified=True
         return redirect('home')
 
