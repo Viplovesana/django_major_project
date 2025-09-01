@@ -164,8 +164,19 @@ def menusearch(req):
         "product": inputsearch,})
     return render(req, "home.html" )
 
-
+def productlist(req):
+    itemdata=Productinfo.objects.all()
+    return render(req,'admin_dashboard.html',{'product':itemdata}) 
+    
    
+def productdelete(req,id):
+    deletedata=Productinfo.objects.filter(id=id)
+    if deletedata:
+        deletedata=Productinfo.objects.get(id=id)
+        # deletedata.delete() 
+        return redirect('productlist') 
+     
+ 
 
 
 # .....................Admin dashboard code.......................................................
