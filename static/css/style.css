@@ -91,16 +91,7 @@
       position: relative;
       left: 94%; 
     }
-/* 
-    .search-bar button {
-      padding: 10px 15px;
-      background: #fff;
-      border: none;
-      border-radius: 0 6px 6px 0;
-      cursor: pointer;
-    } */
 
-    /* Right Section */
     .navbar-right {
       display: flex;
       align-items: center;
@@ -117,11 +108,11 @@
     .cart-badge {
       position: absolute;
       top: -8px;
-      right: -8px;
-      background: #00c1b5;
+      right: -4px;
+      background: #009d71;
       color: #000;
-      font-size: 12px;
-      padding: 2px 6px;
+      font-size: 10px;
+      padding: 1px 6px;
       border-radius: 50%;
     }
     .search-form-small{

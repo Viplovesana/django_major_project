@@ -202,9 +202,17 @@
   </div>
 
       {% endif %}
+
+     
+
+
+
+
       <div class="icon">
-       <a href="{% url 'usercart' %}">🛒</a> 
-        <span class="cart-badge">0</span>
+       <a href="{% url 'usercart' %}">🛒</a>
+         {% if count %}
+        <span class="cart-badge">{{count|default:0}}</span>
+         {% endif %}
       </div>
     </div>
   </nav>
