@@ -26,6 +26,14 @@
     }
 }
 
+.hiphon{
+  color: #00b386 !important;
+  position: relative;
+  top: -15px;
+  right: 23px;
+
+}
+
     /* Left Section */
     .navbar-left {
       display: flex;

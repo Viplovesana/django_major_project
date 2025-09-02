@@ -53,7 +53,7 @@ def login(req):
                 if password==pass1:
                     user_id= usermatch.id
                     req.session['user_id']=user_id         
-                    return redirect('userdash')
+                    return redirect('home')
                 else:
                     msg="password not matched"
                     return render(req,"login.html",{"msg":msg})
