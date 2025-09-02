@@ -40,7 +40,11 @@ user_dashboard
   <!-- Static Sidebar Buttons -->
   <a href="#address">🏠 My Address</a>
   <a href="#orders">📦 My Orders</a>
-  <a href="#wishlist">❤️ My Wishlist</a>
+  {% comment %} <a href="{% url 'wislistitem' %}">❤️ My Wishlist</a> {% endcomment %}
+    <form action="{% url 'wislistitem' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light w-100 mt-3 text-start">❤️ My Wishlist</button>
+  </form>
   <a href="#rewards">🎁 My Rewards</a>
 
   <!-- Functional Buttons (Forms with CSRF) -->
@@ -173,7 +177,47 @@ user_dashboard
 </form>
 
 {% endif %}
+  {% if wishlist %}
 
+<div class="col-lg-8" id="rightuser-section">
+   {% for item in wishlist %}
+   <div class="card wishlist-card mb-3 shadow-sm bg-dark text-light">  
+      <div class="row g-0">
+         <!-- Product Image -->
+         <div class="col-md-3 d-flex align-items-center justify-content-center p-2">
+            <img src="{{ item.image.url }}" class="img-fluid rounded-start" alt="{{ item.name }}" style="max-height: 100px; width: auto;">
+         </div>
+
+         <!-- Product Details -->
+         <div class="col-md-6">
+            <div class="card-body">
+               <h5 class="card-title">{{ item.disc }}</h5>
+               <p class="text-warning" style="font-size: 1.2rem;">★★★★★</p>
+               <p>Standard Delivery by <b>14 August 2025</b> | ₹49</p>
+               <div class="d-flex gap-2">
+                
+                  <a href="{% url 'remove_cart' pk=item.id %}" class="btn btn-outline-danger btn-sm rem-und">Remove</a>
+               </div>
+            </div>
+         </div>
+
+         <!-- Price Section -->
+         <div class="col-md-3 text-end p-3">
+            <h4>₹{{ item.price }}</h4>
+            <p class="mb-1"><small>MRP <s>₹{{ item.mrp }}</s></small></p>
+            <p><small>(Save ₹{{ item.savings }})</small></p>
+            <p class="small emi-optionn">₹3083/mo*</p>
+            <p class="small">
+               <a href="#" class="emi-option text-info" style="text-decoration: underline !important;">EMI Options</a>
+            </p>
+         </div>
+      </div>
+   </div>
+   {% endfor %}
+</div>
+
+        
+  {% endif %}
     </main>
   </div>
 </div>

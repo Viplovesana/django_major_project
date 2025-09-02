@@ -22,7 +22,9 @@
   <h2>Billing Address</h2>
   <p class="sub">ENTER SHIPPING INFORMATION.</p>
 
-  <form action="/submit-billing" method="POST">
+  <form action="{% url 'useraddress' %}" method="POST" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    {{masg}}
     <div class="field full">
       <label for="email">Email Address *</label>
       <input id="email" name="email" type="email" value="" placeholder="you@example.com" required>
@@ -49,16 +51,7 @@
       <input id="addr2" name="address2" type="text" value="" placeholder="Apartment, suite, etc. (optional)">
     </div>
 
-    <!-- <div class="field">
-      <label for="country">Country *</label>
-      <select id="country" name="country" required>
-        <option value="" selected disabled>Select country</option>
-        <option value="United States">United States</option>
-        <option value="India">India</option>
-        <option value="United Kingdom">United Kingdom</option>
-        <option value="Canada">Canada</option>
-      </select>
-    </div> -->
+
 
     <div class="field">
       <label for="zip">Zip / Postal Code *</label>
@@ -70,22 +63,7 @@
       <input id="city" name="city" type="text" value="" placeholder="City" required>
     </div>
 
-    <!-- <div class="field">
-      <label for="state">State / Province *</label>
-      <select id="state" name="state" required>
-        <option value="" selected disabled>Choose state</option>
-        <option value="Maharashtra">Maharashtra</option>
-        <option value="Delhi">Delhi</option>
-        <option value="Panjab">Panjab</option>
-        <option value="Madhya Pradesh">Madhya Pradesh</option>
-        <option value="Bihar">Bihar</option>
-        <option value="Andhra Pradesh">Andhra Pradesh</option>
-        <option value="Kerala">Kerala</option>
-        <option value="Chennai">Chennai</option>
-        <option value="Gujrat">Gujrat</option>
-        <option value="Chattishgarh">Chattishgarh</option>
-      </select>
-    </div> -->
+
      <div class="field full">
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
@@ -102,13 +80,18 @@
       <div class="line"><span>Promotional Savings</span><strong style="color:#dc2626">- ₹{{totalsavings}}</strong></div>
       <div class="line"><span>Subtotal After Discounts</span><strong>₹{{totalprice}}</strong></div>
       <div class="line"><span>Shipping</span><strong style="color:#16a34a">FREE</strong></div>
-      <div class="line"><span>Estimated Tax</span><strong>₹0.00</strong></div>
-      <div class="total"><span>Total</span><span>₹{{totalprice}}</span></div>
-     <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+      <div class="line"><span>Estimated Tax</span><strong>₹0.00</strong></div> 
+     <div class="total"><span>Total</span><span>₹{{totalprice}}</span></div>
+  {% if masg %}
+        <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
          {% csrf_token %}
       <input type="number" name="amount" value="{{totalprice}}" hidden>
         <button class="btn btn-success w-100 mt-3 text-black cheack-out" type="submit">Proceed To Pay</button>
       </form>
+ 
+  {% endif %}
+
+
       {% if payment %}
          <form action="{% url 'paymenthandle' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}

@@ -51,5 +51,8 @@ urlpatterns = [
     path('adress/', views.checkout, name='checkout'),   
     path('payment/',views.payment,name='payment'),
     path('paymenthandle/',views.paymenthandle,name='paymenthandle'),
+    path('useraddress/',views.useraddress,name='useraddress'),
+    path('wishlist/<int:wid>/',views.wishlist,name='wishlist'),
+    path('wislistitem/',views.wislistitem,name='wislistitem'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

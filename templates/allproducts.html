@@ -81,10 +81,18 @@ admin_dashboard
 <div class="container mt-4">
   <div class="row">
     {% for i in product %}
-    <div class="col-md-3 mb-4 card-box">
+    <div class="col-md-3 mb-4 card-box position-relative">
+<form action="{% url 'wishlist' wid=i.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+        <i class="fa-regular fa-heart fav-icon position-absolute top-5 end-90 m-3"
+           title="Add to Wishlist"
+           style="z-index: 10;"></i>
+    </button>
+</form>
+        <!-- <i class="fa-regular fa-heart fav-icon position-absolute top-10 end-10 m-2" style="cursor: pointer;"></i> -->
       <a href="{% url 'carddetail' i.id %}" style="text-decoration: none; color: inherit;">
       <div class="card h-100 position-relative" style="border-radius: 20px; overflow: hidden;"> 
-        <i class="fa-regular fa-heart fav-icon position-absolute top-0 end-0 m-2" style="cursor: pointer;"></i>
         <img src="{{ i.pro_image.url }}" class="card-img-top" alt="..." style="height: 240px; object-fit: cover;">
         <!-- Card Body -->
         <div class="card-body">

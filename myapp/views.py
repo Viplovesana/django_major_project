@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from.models import User,Query,Productinfo,Payment
+from.models import User,Query,Productinfo,Payment,Address
 from django.views.decorators.csrf import csrf_exempt
 import razorpay 
 
@@ -240,6 +240,7 @@ def addtocart(req,pk):
         return redirect('login')
 
 def usercart(req):
+    userid = req.session.get('user_id')
     cart = req.session.get('cart',[])
     quantity = req.session.get('quantity',[])
     print(cart,quantity)
@@ -265,7 +266,7 @@ def usercart(req):
         totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
         l.append(data)
        
-    return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count})
+    return render(req,'usercart.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count,'userid':userid})
 
 def remove_cart(req,pk):
     cart = req.session.get( 'cart',[])
@@ -397,3 +398,86 @@ def paymenthandle(req):
             req.session.modified=True
         return redirect('home')
 
+def useraddress(req):
+    if req.method == "POST":
+        email=req.POST.get('email')
+        name=req.POST.get('name')
+        mobile=req.POST.get('mobile')
+        address1=req.POST.get('address1')
+        address2=req.POST.get('address2')
+        zipcode=req.POST.get('zip')
+        city=req.POST.get('city')
+        Address.objects.create(email=email,name=name,mobile=mobile,address1=address1,address2=address2,zip=zipcode,city=city)
+        cart = req.session.get('cart',[])
+        quantity = req.session.get('quantity',[])
+        userid= req.session.get('user_id')
+        if userid:
+            if cart :
+                print(cart,quantity)
+                l=[]
+                totalprize=0
+                totalsavings=0
+                count=len(cart)
+                for i ,j in zip(cart,quantity):
+                    pro_i = Productinfo.objects.get(id=i)
+                    data={
+                        'id':pro_i.id,
+                        'name':pro_i.pro_name,
+                        'disc':pro_i.pro_disc,
+                        'price':pro_i.pro_price,
+                        'mrp':pro_i.pro_mrp,
+                        'image':pro_i.pro_image,
+                        'quantity':j,
+                        'totalprice':pro_i.pro_price*j,
+                        'savings': pro_i.pro_mrp - pro_i.pro_price,
+                        'totalsavings':(pro_i.pro_mrp - pro_i.pro_price) * j
+                    }
+                    totalprize+=pro_i.pro_price*j
+                    totalsavings += (pro_i.pro_mrp - pro_i.pro_price) * j
+                    l.append(data) 
+                    msg ="Address Submitted"
+                return render(req,'adress.html',{'listdata':l,'totalprice':totalprize,'totalsavings':totalsavings,'count':count,"masg":msg,'userid':userid})
+            else:
+                return render(req,'adress.html',{'userid':userid})
+    
+        return render(req,"adress.html",{'masg':msg})
+    return render(req,"adress.html")
+
+def wishlist(req,wid):
+    userid=req.session.get('user_id')
+    if req.method=='POST':
+        wishlist=req.session.get("wishlist",[])
+        print(wishlist)
+        if userid:
+            if wid not in wishlist:
+                wishlist.append(wid)
+                print(wishlist)
+                req.session["wishlist"]=wishlist
+
+            else:
+                return redirect('allproduct')
+        return redirect('allproduct')
+    return redirect('allproduct')
+
+def wislistitem(req):
+    userid=req.session.get('user_id')
+    wishlist=req.session.get("wishlist")
+    userdata=User.objects.get(id=userid)
+    if wishlist:
+        l=[]
+        for i in wishlist:
+            pro_i = Productinfo.objects.get(id=i)
+            data={
+            'id':pro_i.id,
+            'name':pro_i.pro_name,
+            'disc':pro_i.pro_disc,
+            'price':pro_i.pro_price,
+            'mrp':pro_i.pro_mrp,
+            'image':pro_i.pro_image,
+            'savings': pro_i.pro_mrp - pro_i.pro_price,
+            }
+            l.append(data)
+        return render(req,"user_dashboard.html",{'wishlist':l,'userid':userid,"userpro":userdata})
+    return redirect('userdash')
+
+            

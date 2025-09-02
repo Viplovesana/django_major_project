@@ -8,6 +8,8 @@ class User(models.Model):
     confirmpass=models.CharField()
     profile=models.ImageField(upload_to='file/',null=True)
 
+
+#......................Qurry model.............................................
 class Query(models.Model):
     name=models.CharField(max_length=20)
     email=models.EmailField()
@@ -36,3 +38,14 @@ class Payment(models.Model):
     
     class Meta():
         db_table='Payment'
+
+#.............................Address model...........................................
+
+class Address(models.Model):
+    email=models.EmailField()
+    name=models.CharField(max_length=20)
+    mobile=models.IntegerField()
+    address1=models.CharField()
+    address2=models.CharField()
+    zip=models.IntegerField()
+    city=models.CharField()
